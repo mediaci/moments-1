@@ -5,17 +5,19 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import Alert from "react-bootstrap/Alert";
 import Image from "react-bootstrap/Image";
+
+import Asset from "../../components/Asset";
 
 import Upload from "../../assets/upload.png";
 
 import styles from "../../styles/PostCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
-import Asset from "../../components/Asset";
+
 import { useHistory } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
-import { Alert } from "react-bootstrap";
 
 function PostCreateForm() {
   const [errors, setErrors] = useState({});
@@ -28,7 +30,6 @@ function PostCreateForm() {
   const { title, content, image } = postData;
 
   const imageInput = useRef(null);
-
   const history = useHistory();
 
   const handleChange = (event) => {
@@ -51,6 +52,7 @@ function PostCreateForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
+
     formData.append("title", title);
     formData.append("content", content);
     formData.append("image", imageInput.current.files[0]);
@@ -82,6 +84,7 @@ function PostCreateForm() {
           {message}
         </Alert>
       ))}
+
       <Form.Group>
         <Form.Label>Content</Form.Label>
         <Form.Control
@@ -97,9 +100,10 @@ function PostCreateForm() {
           {message}
         </Alert>
       ))}
+
       <Button
         className={`${btnStyles.Button} ${btnStyles.Blue}`}
-        onClick={() => {}}
+        onClick={() => history.goBack()}
       >
         cancel
       </Button>
@@ -142,6 +146,7 @@ function PostCreateForm() {
                   />
                 </Form.Label>
               )}
+
               <Form.File
                 id="image-upload"
                 accept="image/*"
@@ -154,6 +159,7 @@ function PostCreateForm() {
                 {message}
               </Alert>
             ))}
+
             <div className="d-md-none">{textFields}</div>
           </Container>
         </Col>
