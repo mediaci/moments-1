@@ -21,17 +21,17 @@ import {
 } from "../../contexts/ProfileDataContext";
 import { Button, Image } from "react-bootstrap";
 import { fetchMoreData } from "../../utils/utils";
+import { ProfileEditDropdown } from "../../components/MoreDropdown";
 
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
   const currentUser = useCurrentUser();
   const { id } = useParams();
-  const {setProfileData, handleFollow, handleUnfollow} = useSetProfileData();
+  const { setProfileData, handleFollow, handleUnfollow } = useSetProfileData();
   const { pageProfile } = useProfileData();
   const [profile] = pageProfile.results;
   const is_owner = currentUser?.username === profile?.owner;
   const [profilePosts, setProfilePosts] = useState({ results: [] });
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,6 +56,7 @@ function ProfilePage() {
 
   const mainProfile = (
     <>
+      {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
       <Row noGutters className="px-3 text-center">
         <Col lg={3} className="text-lg-left">
           <Image
@@ -112,18 +113,20 @@ function ProfilePage() {
       <hr />
       {profilePosts?.results.length ? (
         <InfiniteScroll
-        children={profilePosts?.results.map((post) => (
-          <Post key={post.id} {...post} setPosts={setProfilePosts} />
-        ))}
-        dataLength={profilePosts?.results.length}
-        loader={<Asset spinner />}
-        hasMore={!!profilePosts?.next}
-        next={() => fetchMoreData(profilePosts, setProfilePosts)}
-      />
+          children={profilePosts?.results.map((post) => (
+            <Post key={post.id} {...post} setPosts={setProfilePosts} />
+          ))}
+          dataLength={profilePosts?.results.length}
+          loader={<Asset spinner />}
+          hasMore={!!profilePosts?.next}
+          next={() => fetchMoreData(profilePosts, setProfilePosts)}
+        />
       ) : (
-        <Asset src={NoResults} message={`No results found, ${profile?.owner} hasn't posted yet.`} />
+        <Asset
+          src={NoResults}
+          message={`No results found, ${profile?.owner} hasn't posted yet.`}
+        />
       )}
-      
     </>
   );
 
