@@ -17,20 +17,19 @@ const UsernameForm = () => {
   const setCurrentUser = useSetCurrentUser();
 
   useEffect(() => {
-    handleMount();
-  }, []);
-
-  const handleMount = async () => {
-    try {
-      const { data } = await axiosRes.get("/dj-rest-auth/user/");
-      if (data.profile_id !== id) {
-        history.push("/");
+    const handleMount = async () => {
+      try {
+        const { data } = await axiosRes.get("/dj-rest-auth/user/");
+        if (data.profile_id !== id) {
+          history.push("/");
+        }
+        setUsername(data.username);
+      } catch (err) {
+        console.log(err);
       }
-      setUsername(data.username);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    };
+    handleMount();
+  }, [history, id]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
