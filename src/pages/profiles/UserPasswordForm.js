@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
@@ -10,12 +10,12 @@ import Form from "react-bootstrap/Form";
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { axiosRes } from "../../api/axiosDefaults";
 
 const UserPasswordForm = () => {
   const history = useHistory();
-
+  const {id} = useParams();
   const [userData, setUserData] = useState({
     new_password1: "",
     new_password2: "",
@@ -41,6 +41,20 @@ const UserPasswordForm = () => {
       setErrors(err.response?.data);
     }
   };
+
+  useEffect(() => {
+    const handleMount = async () => {
+      try {
+        const {data} = await axiosRes.get("dj-rest-auth/user/")
+        const { profile_id } = data;
+        if (profile_id !== id) {
+          // redirect user if they are not the owner of this profile
+          history.push('/');
+        } 
+      } catch (err) {console.log(err)}
+    }
+    handleMount();
+  }, [history, id])
 
   return (
     <Row>

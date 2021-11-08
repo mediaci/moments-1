@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { Button, Col, Container, Row, Form, Alert } from "react-bootstrap";
 
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { axiosRes } from "../../api/axiosDefaults";
 
 import btnStyles from "../../styles/Button.module.css";
@@ -11,6 +11,7 @@ import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 
 const UsernameForm = () => {
   const history = useHistory();
+  const { id } = useParams();
   const [username, setUsername] = useState("");
   const [errors, setErrors] = useState({});
   const setCurrentUser = useSetCurrentUser();
@@ -22,6 +23,9 @@ const UsernameForm = () => {
   const handleMount = async () => {
     try {
       const { data } = await axiosRes.get("/dj-rest-auth/user/");
+      if (data.profile_id !== id) {
+        history.push("/");
+      }
       setUsername(data.username);
     } catch (err) {
       console.log(err);
@@ -34,10 +38,10 @@ const UsernameForm = () => {
       await axiosRes.put("/dj-rest-auth/user/", {
         username,
       });
-      setCurrentUser(prevUser => ({
+      setCurrentUser((prevUser) => ({
         ...prevUser,
-        username
-      }))
+        username,
+      }));
       history.goBack();
     } catch (err) {
       console.log(err);
