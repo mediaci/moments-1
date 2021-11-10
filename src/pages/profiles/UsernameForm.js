@@ -20,7 +20,7 @@ const UsernameForm = () => {
     const handleMount = async () => {
       try {
         const { data } = await axiosRes.get("/dj-rest-auth/user/");
-        if (data.profile_id !== id) {
+        if (data?.profile_id.toString() !== id) {
           history.push("/");
         }
         setUsername(data.username);

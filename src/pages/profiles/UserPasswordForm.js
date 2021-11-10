@@ -47,7 +47,7 @@ const UserPasswordForm = () => {
       try {
         const {data} = await axiosRes.get("dj-rest-auth/user/")
         const { profile_id } = data;
-        if (profile_id !== id) {
+        if (profile_id?.toString() !== id) {
           // redirect user if they are not the owner of this profile
           history.push('/');
         } 

@@ -15,8 +15,10 @@ import {
   Alert,
 } from "react-bootstrap";
 import axios from "axios";
+import { useRedirectAuthenticated } from "../../hooks/useRedirectAuthenticated";
 
 const SignUpForm = () => {
+  useRedirectAuthenticated(true);
   const [signUpData, setSignUpData] = useState({
     username: "",
     password1: "",

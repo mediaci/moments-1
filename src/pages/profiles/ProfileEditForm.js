@@ -15,7 +15,7 @@ import appStyles from "../../App.module.css";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 
-function ProfileForm() {
+const ProfileEditForm = () => {
   const setCurrentUser = useSetCurrentUser();
   const { id } = useParams();
   const history = useHistory();
@@ -39,6 +39,7 @@ function ProfileForm() {
         is_owner ? setProfileData({ name, content, image }) : history.push("/");
       } catch (err) {
         console.log(err);
+        history.push("/")
       }
     };
 
@@ -154,4 +155,4 @@ function ProfileForm() {
   );
 }
 
-export default ProfileForm;
+export default ProfileEditForm;

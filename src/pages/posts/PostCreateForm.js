@@ -18,8 +18,10 @@ import btnStyles from "../../styles/Button.module.css";
 
 import { useHistory } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
+import { useRedirectAuthenticated } from "../../hooks/useRedirectAuthenticated";
 
 function PostCreateForm() {
+  useRedirectAuthenticated(false);
   const [errors, setErrors] = useState({});
 
   const [postData, setPostData] = useState({
