@@ -139,25 +139,25 @@ function PostEditForm() {
           <Container
             className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
           >
-<Form.Group className="text-center">
-  <figure>
-    <Image className={appStyles.Image} src={image} rounded />
-  </figure>
-  <div>
-    <Form.Label
-      className={`${btnStyles.Button} ${btnStyles.Blue} btn`}
-      htmlFor="image-upload"
-    >
-      Change the image
-    </Form.Label>
-  </div>
-  <Form.File
-    id="image-upload"
-    accept="image/*"
-    onChange={handleChangeImage}
-    ref={imageInput}
-  />
-</Form.Group>
+            <Form.Group className="text-center">
+              <figure>
+                <Image className={appStyles.Image} src={image} rounded />
+              </figure>
+              <div>
+                <Form.Label
+                  className={`${btnStyles.Button} ${btnStyles.Blue} btn`}
+                  htmlFor="image-upload"
+                >
+                  Change the image
+                </Form.Label>
+              </div>
+              <Form.File
+                id="image-upload"
+                accept="image/*"
+                onChange={handleChangeImage}
+                ref={imageInput}
+              />
+            </Form.Group>
             {errors?.image?.map((message, idx) => (
               <Alert variant="warning" key={idx}>
                 {message}

@@ -15,10 +15,10 @@ import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
-import { useRedirectAuthenticated } from "../../hooks/useRedirectAuthenticated";
+import { useRedirect } from "../../hooks/useRedirect";
 
 function SignInForm() {
-  useRedirectAuthenticated(true);
+  useRedirect("loggedIn");
   const setCurrentUser = useSetCurrentUser();
 
   const [signInData, setSignInData] = useState({

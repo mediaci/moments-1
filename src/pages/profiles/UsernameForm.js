@@ -1,36 +1,40 @@
 import React, { useEffect, useState } from "react";
-
-import { Button, Col, Container, Row, Form, Alert } from "react-bootstrap";
-
+ 
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+ 
 import { useHistory, useParams } from "react-router-dom";
 import { axiosRes } from "../../api/axiosDefaults";
-
+import {
+  useCurrentUser,
+  useSetCurrentUser,
+} from "../../contexts/CurrentUserContext";
+ 
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
-import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
-
+ 
 const UsernameForm = () => {
-  const history = useHistory();
-  const { id } = useParams();
   const [username, setUsername] = useState("");
   const [errors, setErrors] = useState({});
+ 
+  const history = useHistory();
+  const { id } = useParams();
+ 
+  const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
-
+ 
   useEffect(() => {
-    const handleMount = async () => {
-      try {
-        const { data } = await axiosRes.get("/dj-rest-auth/user/");
-        if (data?.profile_id.toString() !== id) {
-          history.push("/");
-        }
-        setUsername(data.username);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    handleMount();
-  }, [history, id]);
-
+    if (currentUser?.profile_id?.toString() === id) {
+      setUsername(currentUser.username);
+    } else {
+      history.push("/");
+    }
+  }, [currentUser, history, id]);
+ 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -47,7 +51,7 @@ const UsernameForm = () => {
       setErrors(err.response?.data);
     }
   };
-
+ 
   return (
     <Row>
       <Col className="py-2 mx-auto text-center" md={6}>
@@ -85,5 +89,5 @@ const UsernameForm = () => {
     </Row>
   );
 };
-
+ 
 export default UsernameForm;
