@@ -33,12 +33,9 @@ function PostPage() {
           axiosReq.get(`/posts/${id}`),
           axiosReq.get(`/comments/?post=${id}`),
         ]);
-        console.log(post);
         setPost({ results: [post] });
         setComments(comments);
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     };
 
     handleMount();

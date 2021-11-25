@@ -1,5 +1,5 @@
 import React from "react";
-import { Dropdown } from "react-bootstrap";
+import Dropdown from "react-bootstrap/Dropdown";
 import { useHistory } from "react-router";
 import styles from "../styles/MoreDropdown.module.css";
 

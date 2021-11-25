@@ -28,9 +28,7 @@ export const ProfileDataProvider = ({ children }) => {
           ...prevState,
           popularProfiles: data,
         }));
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     };
     handleMount();
   }, [currentUser]);
@@ -54,9 +52,7 @@ export const ProfileDataProvider = ({ children }) => {
           ),
         },
       }));
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleUnfollow = async (clickedProfile) => {
@@ -76,9 +72,7 @@ export const ProfileDataProvider = ({ children }) => {
           ),
         },
       }));
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (

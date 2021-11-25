@@ -19,7 +19,8 @@ import {
   useProfileData,
   useSetProfileData,
 } from "../../contexts/ProfileDataContext";
-import { Button, Image } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
 import { fetchMoreData } from "../../utils/utils";
 import { ProfileEditDropdown } from "../../components/MoreDropdown";
 
@@ -47,9 +48,7 @@ function ProfilePage() {
         }));
         setProfilePosts(profilePosts);
         setHasLoaded(true);
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     };
     fetchData();
   }, [id, setProfileData]);

@@ -1,9 +1,16 @@
 import React from "react";
-import { Navbar, Container, Nav } from "react-bootstrap";
+
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+
 import logo from "../assets/logo.png";
 import styles from "../styles/NavBar.module.css";
 import { NavLink } from "react-router-dom";
-import { useCurrentUser, useSetCurrentUser } from "../contexts/CurrentUserContext";
+import {
+  useCurrentUser,
+  useSetCurrentUser,
+} from "../contexts/CurrentUserContext";
 import Avatar from "./Avatar";
 import axios from "axios";
 import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
@@ -19,9 +26,7 @@ const NavBar = () => {
       await axios.post("dj-rest-auth/logout/");
       setCurrentUser(null);
       removeTokenTimestamp();
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const loggedInIcons = (
@@ -42,11 +47,7 @@ const NavBar = () => {
         <i className="fas fa-heart"></i>
         Liked
       </NavLink>
-      <NavLink
-        className={styles.NavLink}
-        to="/"
-        onClick={handleSignOut}
-      >
+      <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
         <i className="fas fa-sign-out-alt"></i>
         Sign out
       </NavLink>
@@ -84,10 +85,15 @@ const NavBar = () => {
     >
       <i className="far fa-plus-square"></i>Add post
     </NavLink>
-  )
+  );
 
   return (
-    <Navbar className={styles.NavBar} expand="md" fixed="top" expanded={expanded}>
+    <Navbar
+      className={styles.NavBar}
+      expand="md"
+      fixed="top"
+      expanded={expanded}
+    >
       <Container>
         <NavLink to="/">
           <Navbar.Brand>
@@ -95,7 +101,7 @@ const NavBar = () => {
           </Navbar.Brand>
         </NavLink>
         {currentUser && addPostIcon}
-        <Navbar.Toggle 
+        <Navbar.Toggle
           aria-controls="basic-navbar-nav"
           onClick={() => setExpanded(!expanded)}
           ref={ref}

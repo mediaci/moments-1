@@ -15,9 +15,7 @@ export const CurrentUserProvider = ({ children }) => {
     try {
       const { data } = await axiosRes.get("dj-rest-auth/user/");
       setCurrentUser(data);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -30,7 +28,6 @@ export const CurrentUserProvider = ({ children }) => {
         if (shouldRefreshToken()) {
           try {
             await axios.post("/dj-rest-auth/token/refresh/");
-            console.log("refreshed the token OK!", config);
           } catch (err) {
             setCurrentUser((prevCurrentUser) => {
               if (prevCurrentUser) {

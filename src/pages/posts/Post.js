@@ -1,7 +1,11 @@
 import React from "react";
 import styles from "../../styles/Post.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Card, Media, OverlayTrigger, Tooltip } from "react-bootstrap";
+import Card from "react-bootstrap/Card";
+import Media from "react-bootstrap/Media";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+
 import { Link } from "react-router-dom";
 
 import Avatar from "../../components/Avatar";
@@ -41,9 +45,7 @@ const Post = (props) => {
             : post;
         }),
       }));
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleUnlike = async () => {
@@ -57,9 +59,7 @@ const Post = (props) => {
             : post;
         }),
       }));
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleEdit = () => {
@@ -70,9 +70,7 @@ const Post = (props) => {
     try {
       await axiosRes.delete(`/posts/${id}/`);
       history.goBack();
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (
